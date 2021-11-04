@@ -4,7 +4,8 @@ export const colors = {
   white: '#ffffff',
   dark: {
     blue: '#004492',
-    grey: '#454646',
+    grey: '#737373',
+    darkerGrey: '#454646',
     white: '#e5e5e5',
   },
   light: {
