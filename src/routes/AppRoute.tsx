@@ -16,6 +16,7 @@ const AppRoute: React.FC<any> = ({}) => {
       screenOptions={{
         headerStyle: {backgroundColor: colors.primary},
         headerTitleStyle: {color: colors.white},
+        headerTintColor: colors.white,
       }}>
       <Screen name="Jala Media" component={HomeTab} />
       <Screen name="Detail Harga Udang" component={HargaUdangDetailScreen} />
