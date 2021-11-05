@@ -16,6 +16,7 @@ const HomeTab: React.FC<any> = ({}) => {
   return (
     <Navigator
       screenOptions={{
+        swipeEnabled: false,
         tabBarIndicatorStyle: {
           backgroundColor: colors.primary,
           height: normalize(4),
