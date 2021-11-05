@@ -50,7 +50,9 @@ const KabarUdangCard: React.FC<IKabarUdangCardProps> = ({
       <View style={styles.body}>
         <Text style={styles.title}>{title}</Text>
         <Gap height={4} />
-        <Text style={styles.subtitle}>{excerpt}</Text>
+        <Text style={styles.subtitle} numberOfLines={2}>
+          {excerpt}
+        </Text>
       </View>
       <Gap height={10} />
       <View style={styles.footer}>
