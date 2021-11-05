@@ -4,6 +4,7 @@ import {Gap} from '../components/Gap';
 import {KabarUdangCard} from '../components/KabarUdangCard';
 import {SectionTitle} from '../components/SectionTitle';
 import {normalize} from '../helpers';
+import {colors} from '../styles';
 
 export type IKabarUdangScreenProps = {};
 
@@ -82,6 +83,7 @@ export {KabarUdangScreen};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.white,
   },
   contentContainer: {
     marginVertical: normalize(15),
