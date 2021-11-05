@@ -20,7 +20,11 @@ const AppRoute: React.FC<any> = ({}) => {
       }}>
       <Screen name="Jala Media" component={HomeTab} />
       <Screen name="Detail Harga Udang" component={HargaUdangDetailScreen} />
-      <Screen name="Detail Kabar Udang" component={KabarUdangDetailScreen} />
+      <Screen
+        name="Detail Kabar Udang"
+        component={KabarUdangDetailScreen}
+        options={{title: 'Kabar Udang'}}
+      />
       <Screen name="Info Penyakit" component={InfoPenyakitScreen} />
     </Navigator>
   );
