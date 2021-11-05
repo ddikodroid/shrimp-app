@@ -7,7 +7,7 @@ import {
 } from '../screens';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {colors} from '../styles/colors';
-import {normalize} from './helpers/normalize';
+import {normalize} from '../helpers/normalize';
 export type IHomeTabProps = {};
 
 const {Navigator, Screen} = createMaterialTopTabNavigator();
