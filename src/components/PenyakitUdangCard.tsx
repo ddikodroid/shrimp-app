@@ -80,12 +80,11 @@ const styles = StyleSheet.create({
     borderColor: colors.dark.white,
     borderRadius: normalize(8),
     marginBottom: normalize(12),
+    overflow: 'hidden',
   },
   image: {
     width: '100%',
     aspectRatio: 2.05 / 1,
-    borderTopLeftRadius: normalize(8),
-    borderTopRightRadius: normalize(8),
   },
   body: {
     marginHorizontal: normalize(12),
