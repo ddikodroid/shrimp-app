@@ -34,7 +34,6 @@ const PenyakitUdangCard: React.FC<IPenyakitUdangCardProps> = ({
   const handleOpenWebView = () => {
     navigation.navigate('Info Penyakit', {id});
   };
-  console.log(`image url: ${BASE_URL}/${image}`);
   return (
     <Pressable style={styles.container} onPress={handleOpenWebView}>
       <FastImage
@@ -44,7 +43,6 @@ const PenyakitUdangCard: React.FC<IPenyakitUdangCardProps> = ({
           priority: FastImage.priority.normal,
         }}
         style={styles.image}
-        onError={() => console.log('error')}
         resizeMode={FastImage.resizeMode.cover}
       />
       <Gap height={8.5} />
