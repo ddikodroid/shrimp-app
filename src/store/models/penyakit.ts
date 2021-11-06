@@ -69,7 +69,6 @@ export const penyakit: IPenyakitModel = {
       });
       actions.addPenyakit(response.data.data);
     } catch (error) {
-      console.log(error);
       actions.setError(error);
     } finally {
       actions.setFetching(false);
