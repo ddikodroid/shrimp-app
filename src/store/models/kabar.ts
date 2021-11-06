@@ -79,7 +79,6 @@ export const kabar: IKabarModel = {
       );
       actions.addKabar(response.data.data);
     } catch (error) {
-      console.log(error);
       actions.setError(error);
     } finally {
       actions.setFetching(false);
@@ -88,7 +87,6 @@ export const kabar: IKabarModel = {
   }),
   getMoreKabar: thunk(async (actions, payload) => {
     try {
-      console.log('payload page' + payload.page);
       actions.setFetching(true);
       const response = await axios.get(
         `${BASE_URL}/api/posts?per_page=15&page=${payload.page}`,
@@ -98,10 +96,8 @@ export const kabar: IKabarModel = {
           },
         },
       );
-      console.log(response.data.meta);
       actions.addMoreKabar(response.data.data);
     } catch (error) {
-      console.log(error);
       actions.setError(error);
     } finally {
       actions.setFetching(false);

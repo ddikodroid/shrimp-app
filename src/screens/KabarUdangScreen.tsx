@@ -4,7 +4,7 @@ import {Gap} from '../components/Gap';
 import {KabarUdangCard} from '../components/KabarUdangCard';
 import {SectionTitle} from '../components/SectionTitle';
 import {normalize} from '../helpers';
-import {store, useStoreActions, useStoreState} from '../store';
+import {useStoreActions, useStoreState} from '../store';
 import {colors} from '../styles';
 
 export type IKabarUdangScreenProps = {};
@@ -14,7 +14,7 @@ const KabarUdangScreen: React.FC<IKabarUdangScreenProps> = ({}) => {
   const getKabar = useStoreActions(actions => actions.kabar.getKabar);
   const getMoreKabar = useStoreActions(actions => actions.kabar.getMoreKabar);
   const [page, setPage] = useState<number>(2);
-  console.log(kabar);
+
   useEffect(() => {
     getKabar();
   }, []);
