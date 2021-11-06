@@ -38,7 +38,9 @@ export interface IKabarModel {
   setFetching: Action<IStatus, any>;
   setSuccess: Action<IStatus, any>;
   addKabar: Action<IKabarModel, any>;
+  addMoreKabar: Action<IKabarModel, any>;
   getKabar: Thunk<IKabarModel>;
+  getMoreKabar: Thunk<IKabarModel, any>;
 }
 
 export const kabar: IKabarModel = {
@@ -61,11 +63,14 @@ export const kabar: IKabarModel = {
   addKabar: action((state, payload) => {
     state.data = payload;
   }),
-  getKabar: thunk(async (actions, payload) => {
+  addMoreKabar: action((state, payload) => {
+    state.data.push(...payload);
+  }),
+  getKabar: thunk(async actions => {
     try {
       actions.setFetching(true);
       const response = await axios.get(
-        `${BASE_URL}/api/posts?per_page=15?page=1`,
+        `${BASE_URL}/api/posts?per_page=15&page=1`,
         {
           headers: {
             Authorization: `Bearer ${API_TOKEN}`,
@@ -73,6 +78,28 @@ export const kabar: IKabarModel = {
         },
       );
       actions.addKabar(response.data.data);
+    } catch (error) {
+      console.log(error);
+      actions.setError(error);
+    } finally {
+      actions.setFetching(false);
+      actions.setSuccess(true);
+    }
+  }),
+  getMoreKabar: thunk(async (actions, payload) => {
+    try {
+      console.log('payload page' + payload.page);
+      actions.setFetching(true);
+      const response = await axios.get(
+        `${BASE_URL}/api/posts?per_page=15&page=${payload.page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${API_TOKEN}`,
+          },
+        },
+      );
+      console.log(response.data.meta);
+      actions.addMoreKabar(response.data.data);
     } catch (error) {
       console.log(error);
       actions.setError(error);
