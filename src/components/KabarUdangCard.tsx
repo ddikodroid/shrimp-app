@@ -3,7 +3,7 @@ import {Pressable, Share, StyleSheet, Text, View} from 'react-native';
 import {API_TOKEN, BASE_URL} from 'react-native-dotenv';
 import FastImage from 'react-native-fast-image';
 import Icon from 'react-native-dynamic-vector-icons';
-import {normalize} from '../helpers/';
+import {normalize} from '../helpers';
 import {colors, fonts} from '../styles';
 import {Gap} from './Gap';
 import dayjs from 'dayjs';
