@@ -8,8 +8,8 @@ import {window} from '../styles/constants';
 export type IFilterFloatingButtonProps = {
   onPressSize: () => void | void;
   onPressRegion: () => void | void;
-  size: string;
-  region: string;
+  size?: string;
+  region?: string;
 };
 
 const FilterFloatingButton: React.FC<IFilterFloatingButtonProps> = ({
