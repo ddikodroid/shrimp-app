@@ -1,32 +1,22 @@
-import React from 'react';
-import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
 import {Gap} from '../components/Gap';
 import {PenyakitUdangCard} from '../components/PenyakitUdangCard';
 import {SectionTitle} from '../components/SectionTitle';
 import {normalize} from '../helpers';
+import {useStoreActions, useStoreState} from '../store';
 import {colors} from '../styles';
 
 export type IDaftarPenyakitScreenProps = {};
-const penyakitUdang = [
-  {
-    id: 1,
-    full_name: 'Acute Hepatopancreatic Necrosis Disease',
-    image: 'diseases/July2019/XyZZxDBZL7IYxG1LXoGr.png',
-    meta_description:
-      'udang yang mengalami penyakit AHPND menunjukkan kosongnya saluran pencernaan dan hepatopankreas berwarna pucat dan mengecil., kulit menjadi lunak, bintik hitam pada hepatopankreas, kematian pada hari ke-10 setelah tebar, dan udang yang lemas tenggelam didasar kolam',
-    created_at: '2019-07-12 20:02:00',
-  },
-  {
-    id: 2,
-    full_name: 'Acute Hepatopancreatic Necrosis Disease',
-    image: 'diseases/July2019/XyZZxDBZL7IYxG1LXoGr.png',
-    meta_description:
-      'udang yang mengalami penyakit AHPND menunjukkan kosongnya saluran pencernaan dan hepatopankreas berwarna pucat dan mengecil., kulit menjadi lunak, bintik hitam pada hepatopankreas, kematian pada hari ke-10 setelah tebar, dan udang yang lemas tenggelam didasar kolam',
-    created_at: '2019-07-12 20:02:00',
-  },
-];
 
 const DaftarPenyakitScreen: React.FC<IDaftarPenyakitScreenProps> = ({}) => {
+  const penyakit = useStoreState(state => state.penyakit.data);
+  const getPenyakit = useStoreActions(actions => actions.penyakit.getPenyakit);
+
+  useEffect(() => {
+    getPenyakit();
+  }, []);
+
   const renderHeader = () => (
     <>
       <SectionTitle title="Daftar Penyakit" />
@@ -39,7 +29,7 @@ const DaftarPenyakitScreen: React.FC<IDaftarPenyakitScreenProps> = ({}) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={penyakitUdang}
+        data={penyakit}
         renderItem={renderPenyakitUdang}
         ListHeaderComponent={renderHeader}
         contentContainerStyle={styles.contentContainer}
