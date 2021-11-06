@@ -34,17 +34,17 @@ const PenyakitUdangCard: React.FC<IPenyakitUdangCardProps> = ({
   const handleOpenWebView = () => {
     navigation.navigate('Info Penyakit', {id});
   };
+  console.log(`image url: ${BASE_URL}/${image}`);
   return (
     <Pressable style={styles.container} onPress={handleOpenWebView}>
       <FastImage
         source={{
-          //   uri: `${BASE_URL}/${image}`,
-          uri:
-            'https://www.jennybeaumont.com/wp-content/uploads/2015/03/placeholder-800x423.gif',
+          uri: `${BASE_URL}/storage/${image}`,
           headers: {Authorization: `Bearer ${API_TOKEN}`},
           priority: FastImage.priority.normal,
         }}
         style={styles.image}
+        onError={() => console.log('error')}
         resizeMode={FastImage.resizeMode.cover}
       />
       <Gap height={8.5} />
