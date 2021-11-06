@@ -10,6 +10,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import com.facebook.react.bridge.JSIModulePackage; // <- reanimated 2
+import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- reanimated 2
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -32,6 +34,10 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected String getJSMainModuleName() {
           return "index";
+        }
+        @Override
+        protected JSIModulePackage getJSIModulePackage() {
+          return new ReanimatedJSIModulePackage(); // <- reanimated 2
         }
       };
 
