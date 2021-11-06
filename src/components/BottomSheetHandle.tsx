@@ -11,29 +11,55 @@ export type IBottomSheetHandleProps = {
 const BottomSheetHandle: React.FC<IBottomSheetHandleProps> = ({
   title,
   onPressClose,
+  children,
 }) => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.bottomSheetTitle}>{title}</Text>
-      <Text style={styles.bottomSheetCloseTitle} onPress={onPressClose}>
-        Tutup
-      </Text>
-    </View>
-  );
+  if (children) {
+    return (
+      <View style={[styles.baseContainer, styles.withChildren]}>
+        <View style={styles.withChildrenText}>
+          <Text style={styles.bottomSheetTitle}>{title}</Text>
+          <Text style={styles.bottomSheetCloseTitle} onPress={onPressClose}>
+            Tutup
+          </Text>
+        </View>
+        {children}
+      </View>
+    );
+  } else {
+    return (
+      <View style={[styles.baseContainer, styles.withoutChildren]}>
+        <Text style={styles.bottomSheetTitle}>{title}</Text>
+        <Text style={styles.bottomSheetCloseTitle} onPress={onPressClose}>
+          Tutup
+        </Text>
+      </View>
+    );
+  }
 };
 
 export {BottomSheetHandle};
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  baseContainer: {
     paddingHorizontal: normalize(16),
-    paddingVertical: normalize(12),
     borderBottomWidth: 0.5,
     borderBottomColor: colors.light.grey,
     borderTopRightRadius: normalize(16),
     borderTopLeftRadius: normalize(16),
+  },
+  withChildren: {
+    paddingBottom: normalize(8),
+  },
+  withChildrenText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: normalize(12),
+    paddingBottom: normalize(8),
+  },
+  withoutChildren: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: normalize(12),
   },
   bottomSheetTitle: {
     ...fonts.bold,
