@@ -8,7 +8,7 @@ import {window} from '../styles/constants';
 export type IFilterFloatingButtonProps = {
   onPressSize: () => void | void;
   onPressRegion: () => void | void;
-  size?: string;
+  size?: string | number;
   region?: string;
 };
 
