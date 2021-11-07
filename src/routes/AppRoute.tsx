@@ -19,7 +19,11 @@ const AppRoute: React.FC<any> = ({}) => {
         headerTintColor: colors.white,
       }}>
       <Screen name="Jala Media" component={HomeTab} />
-      <Screen name="Detail Harga Udang" component={HargaUdangDetailScreen} />
+      <Screen
+        name="Detail Harga Udang"
+        component={HargaUdangDetailScreen}
+        options={{title: 'Harga Udang'}}
+      />
       <Screen
         name="Detail Kabar Udang"
         component={KabarUdangDetailScreen}
