@@ -51,7 +51,7 @@ const FilterFloatingButton: React.FC<IFilterFloatingButtonProps> = ({
           color={colors.white}
           size={normalize(18)}
         />
-        <Text style={styles.region} numberOfLines={2}>
+        <Text style={styles.region} numberOfLines={1}>
           {region}
         </Text>
       </Pressable>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
   region: {
     ...fonts.bold,
-    fontSize: normalize(16),
+    fontSize: normalize(14),
     lineHeight: normalize(24),
     marginLeft: normalize(8),
     width: '75%',
