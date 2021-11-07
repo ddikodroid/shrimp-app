@@ -1,10 +1,11 @@
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   Keyboard,
   SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 import {FilterFloatingButton} from '../components/FilterFloatingButton';
@@ -15,17 +16,44 @@ import BottomSheet, {
   BottomSheetTextInput,
 } from '@gorhom/bottom-sheet';
 import {ukuranUdang} from '../data/ukuranUdang';
-import {normalize} from '../helpers';
+import {debounce, normalize, reverseAddress} from '../helpers';
 import Icon from 'react-native-dynamic-vector-icons';
+import {useStoreActions, useStoreState} from '../store';
+import {TouchableWithoutFeedback} from '@gorhom/bottom-sheet';
 
 export type IHargaUdangScreenProps = {};
 
 const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({}) => {
   const [isBottomsheetOpen, setIsBottomsheetOpen] = useState(false);
   const [ukuran, setUkuran] = useState<undefined | number>(undefined);
+  const [regionName, setRegionName] = useState<undefined | string>(undefined);
+  const [regionId, setRegionId] = useState<null | string>(null);
+  const [regionQuery, setRegionQuery] = useState<string>('');
+
+  const regionData = useStoreState(state => state.region.data);
+  const searchRegion = useStoreActions(actions => actions.region.searchRegion);
+  const debounceSearchRegion = debounce(searchRegion, 75);
+
+  const handleSearchRegion = ({nativeEvent}: any) => {
+    const {text} = nativeEvent;
+    setRegionQuery(text);
+  };
+
+  const setRegionChoice = ({name, id}: {name: string; id: string}) => {
+    setRegionName(name);
+    setRegionId(id);
+    Keyboard?.dismiss();
+    regionBottomSheetRef?.current?.close();
+    setIsBottomsheetOpen(false);
+    console.log(id);
+  };
+
+  useEffect(() => {
+    debounceSearchRegion({query: regionQuery});
+  }, [regionQuery, debounceSearchRegion]);
 
   const regionBottomSheetRef = useRef<BottomSheet>(null);
-  const searchBarRef = useRef(null);
+  const searchBarRef = useRef<TextInput>(null);
   const regionBottomSheetSnapPoints = useMemo(() => ['75%', '100%'], []);
 
   const handleCloseRegionBottomSheet = useCallback(() => {
@@ -37,8 +65,24 @@ const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({}) => {
     sizeBottomSheetRef?.current?.close();
     regionBottomSheetRef?.current?.expand();
     setIsBottomsheetOpen(true);
-    searchBarRef?.current?.focus();
+    // searchBarRef?.current?.focus();
   }, []);
+
+  const renderRegionSearchResult = ({item}) => {
+    return (
+      <TouchableWithoutFeedback
+        onPress={() =>
+          setRegionChoice({
+            name: item.full_name,
+            id: item.id,
+          })
+        }>
+        <Text numberOfLines={1} style={styles.regionSearchResultText}>
+          {reverseAddress(item.full_name)}
+        </Text>
+      </TouchableWithoutFeedback>
+    );
+  };
 
   const sizeBottomSheetRef = useRef<BottomSheet>(null);
   const sizeBottomSheetSnapPoints = useMemo(() => ['75%', '100%'], []);
@@ -102,6 +146,7 @@ const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({}) => {
                 style={styles.bottomSheetTextInput}
                 placeholder="Cari..."
                 placeholderTextColor={colors.light.grey}
+                onChange={handleSearchRegion}
               />
             </View>
             <Icon
@@ -109,9 +154,15 @@ const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({}) => {
               name="close-circle"
               size={normalize(18)}
               color={colors.dark.grey}
+              onPress={() => searchBarRef?.current?.clear()}
             />
           </View>
         </BottomSheetHandle>
+        <BottomSheetFlatList
+          data={regionData}
+          renderItem={renderRegionSearchResult}
+          contentContainerStyle={styles.filterSizeContentContainer}
+        />
       </BottomSheet>
       <BottomSheet
         index={-1}
@@ -129,6 +180,7 @@ const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({}) => {
       {isBottomsheetOpen ? null : (
         <FilterFloatingButton
           size={ukuran}
+          region={regionName}
           onPressRegion={handleOpenRegionBottomSheet}
           onPressSize={handleOpenSizeBottomSheet}
         />
@@ -187,5 +239,13 @@ const styles = StyleSheet.create({
     width: '90%',
     overflow: 'hidden',
     paddingHorizontal: normalize(4),
+  },
+  regionSearchResultText: {
+    ...fonts.regular,
+    fontSize: normalize(14),
+    lineHeight: normalize(20),
+    color: colors.dark.darkerGrey,
+    paddingHorizontal: normalize(16),
+    paddingVertical: normalize(12),
   },
 });
