@@ -139,7 +139,7 @@ const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({}) => {
                 name="search"
                 size={normalize(20)}
                 color={colors.light.grey}
-                style={{marginRight: normalize(2)}}
+                style={styles.searchIcon}
               />
               <BottomSheetTextInput
                 ref={searchBarRef}
@@ -180,7 +180,7 @@ const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({}) => {
       {isBottomsheetOpen ? null : (
         <FilterFloatingButton
           size={ukuran}
-          region={regionName}
+          region={regionName ? reverseAddress(regionName) : undefined}
           onPressRegion={handleOpenRegionBottomSheet}
           onPressSize={handleOpenSizeBottomSheet}
         />
@@ -248,4 +248,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: normalize(16),
     paddingVertical: normalize(12),
   },
+  searchIcon: {marginRight: normalize(2)},
 });
