@@ -1,12 +1,9 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
-import Animated, {SlideInUp, SlideOutDown} from 'react-native-reanimated';
 import {normalize} from '../helpers';
 import {colors, fonts} from '../styles';
 import {window} from '../styles/constants';
-
-const AnimatedView = Animated.createAnimatedComponent(View);
 
 export type IFilterFloatingButtonProps = {
   onPressSize: () => void | void;
@@ -22,10 +19,7 @@ const FilterFloatingButton: React.FC<IFilterFloatingButtonProps> = ({
   region = 'Tentukan daerah',
 }) => {
   return (
-    <AnimatedView
-      style={styles.container}
-      entering={SlideInUp}
-      exiting={SlideOutDown}>
+    <View style={styles.container}>
       <Pressable
         onPress={onPressSize}
         style={[styles.row, styles.sizeContainer]}>
@@ -55,7 +49,7 @@ const FilterFloatingButton: React.FC<IFilterFloatingButtonProps> = ({
           {region}
         </Text>
       </Pressable>
-    </AnimatedView>
+    </View>
   );
 };
 
