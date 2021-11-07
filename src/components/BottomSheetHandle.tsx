@@ -42,24 +42,22 @@ export {BottomSheetHandle};
 const styles = StyleSheet.create({
   baseContainer: {
     paddingHorizontal: normalize(16),
-    borderBottomWidth: 0.5,
-    borderBottomColor: colors.light.grey,
-    borderTopRightRadius: normalize(16),
-    borderTopLeftRadius: normalize(16),
+    borderBottomWidth: 1,
+    borderBottomColor: colors.dark.white,
   },
   withChildren: {
-    paddingBottom: normalize(8),
+    // paddingBottom: normalize(8),
   },
   withChildrenText: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingTop: normalize(12),
+    // paddingTop: normalize(12),
     paddingBottom: normalize(8),
   },
   withoutChildren: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: normalize(12),
+    paddingVertical: normalize(10),
   },
   bottomSheetTitle: {
     ...fonts.bold,
