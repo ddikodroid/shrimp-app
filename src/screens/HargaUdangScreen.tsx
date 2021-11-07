@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
+  FlatList,
   Keyboard,
   SafeAreaView,
   StatusBar,
@@ -20,10 +21,15 @@ import {debounce, normalize, reverseAddress} from '../helpers';
 import Icon from 'react-native-dynamic-vector-icons';
 import {useStoreActions, useStoreState} from '../store';
 import {TouchableWithoutFeedback} from '@gorhom/bottom-sheet';
+import {hargaUdang} from '../data/hargaUdang';
+import {SupplierCard} from '../components/SupplierCard';
+import {Gap} from '../components/Gap';
 
-export type IHargaUdangScreenProps = {};
+export type IHargaUdangScreenProps = {
+  navigation: any;
+};
 
-const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({}) => {
+const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({navigation}) => {
   const [isBottomsheetOpen, setIsBottomsheetOpen] = useState(false);
   const [ukuran, setUkuran] = useState<undefined | number>(undefined);
   const [regionName, setRegionName] = useState<undefined | string>(undefined);
@@ -120,8 +126,31 @@ const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({}) => {
     [],
   );
 
+  const renderSupplierCard = ({item}) => (
+    <>
+      <SupplierCard
+        price={100}
+        size={'100'}
+        id={item.created_by}
+        name={item.creator.name}
+        region={item.region.name}
+        avatar={item.creator.avatar}
+        creationDate={item.created_at}
+        province={item.region.province_name}
+        isVerified={item.creator.email_verified}
+        onPressDetail={() => navigation.navigate('Detail Harga Udang', {item})}
+      />
+      <Gap height={8} />
+    </>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
+      <FlatList
+        data={hargaUdang}
+        renderItem={renderSupplierCard}
+        contentContainerStyle={styles.contentContainer}
+      />
       <BottomSheet
         index={-1}
         ref={regionBottomSheetRef}
@@ -249,4 +278,8 @@ const styles = StyleSheet.create({
     paddingVertical: normalize(12),
   },
   searchIcon: {marginRight: normalize(2)},
+  contentContainer: {
+    padding: normalize(16),
+    paddingBottom: normalize(64),
+  },
 });
