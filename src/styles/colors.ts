@@ -11,5 +11,6 @@ export const colors = {
   light: {
     yellow: '#fff8e7',
     grey: '#a09e9e',
+    lighterGrey: '#f5f6f7',
   },
 };
