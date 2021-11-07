@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: normalize(24),
     borderBottomLeftRadius: normalize(24),
     width: window.width * 0.3,
-    paddingHorizontal: normalize(25),
+    paddingHorizontal: normalize(20),
   },
   sizeSubContainer: {
     marginLeft: normalize(8),
@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderTopRightRadius: normalize(24),
     borderBottomRightRadius: normalize(24),
-    width: window.width * 0.6,
-    paddingHorizontal: normalize(25),
+    width: window.width * 0.65,
+    paddingHorizontal: normalize(16),
   },
   region: {
     ...fonts.bold,
