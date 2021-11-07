@@ -18,13 +18,13 @@ const VerificationBadge: React.FC<IVerificationBadgeProps> = ({isVerified}) => {
           color={colors.yellow}
           size={normalize(16)}
         />
-        <Text style={styles.text}>Terverikasi</Text>
+        <Text style={styles.text}>Terverifikasi</Text>
       </View>
     );
   } else {
     return (
       <View style={[styles.baseContainer, styles.notVerified]}>
-        <Text style={styles.text}>Belum Terverikasi</Text>
+        <Text style={styles.text}>Belum Terverifikasi</Text>
       </View>
     );
   }
