@@ -114,7 +114,11 @@ const SupplierDetailCard: React.FC<ISupplierDetailCardProps> = ({
         <Gap height={16} />
         <Text style={styles.sectionTitle}>Daftar Harga</Text>
         {ukuranUdang.map(ukuran => (
-          <HargaUdangListItem price={`size_${ukuran}`} size={ukuran} />
+          <HargaUdangListItem
+            price={`size_${ukuran}`}
+            size={ukuran}
+            key={ukuran}
+          />
         ))}
         {remark ? (
           <>
