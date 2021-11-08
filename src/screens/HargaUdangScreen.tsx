@@ -17,11 +17,10 @@ import BottomSheet, {
   BottomSheetTextInput,
 } from '@gorhom/bottom-sheet';
 import {ukuranUdang} from '../data/ukuranUdang';
-import {debounce, normalize, reverseAddress} from '../helpers';
+import {debounce, normalize, reverseAddress, usePrevious} from '../helpers';
 import Icon from 'react-native-dynamic-vector-icons';
 import {useStoreActions, useStoreState} from '../store';
 import {TouchableWithoutFeedback} from '@gorhom/bottom-sheet';
-import {hargaUdang} from '../data/hargaUdang';
 import {SupplierCard} from '../components/SupplierCard';
 import {Gap} from '../components/Gap';
 
@@ -30,10 +29,18 @@ export type IHargaUdangScreenProps = {
 };
 
 const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({navigation}) => {
+  const udang = useStoreState(state => state.udang.data);
+  const getUdang = useStoreActions(actions => actions.udang.getUdang);
+  const clearUdang = useStoreActions(actions => actions.udang.clearUdang);
+  const getMoreUdang = useStoreActions(actions => actions.udang.getMoreUdang);
+  const [page, setPage] = useState<number>(2);
+
   const [isBottomsheetOpen, setIsBottomsheetOpen] = useState(false);
   const [ukuran, setUkuran] = useState<undefined | number>(undefined);
+
   const [regionName, setRegionName] = useState<undefined | string>(undefined);
   const [regionId, setRegionId] = useState<null | string>(null);
+  const prevRegionId = usePrevious(regionId);
   const [regionQuery, setRegionQuery] = useState<string>('');
 
   const regionData = useStoreState(state => state.region.data);
@@ -51,7 +58,6 @@ const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({navigation}) => {
     Keyboard?.dismiss();
     regionBottomSheetRef?.current?.close();
     setIsBottomsheetOpen(false);
-    console.log(id);
   };
 
   useEffect(() => {
@@ -129,11 +135,12 @@ const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({navigation}) => {
   const renderSupplierCard = ({item}) => (
     <>
       <SupplierCard
-        price={100}
-        size={'100'}
+        price={item[`size_${ukuran}`]}
+        size={String(ukuran)}
         id={item.created_by}
         name={item.creator.name}
         region={item.region.name}
+        currency={item.currency_id}
         avatar={item.creator.avatar}
         creationDate={item.created_at}
         province={item.region.province_name}
@@ -144,12 +151,36 @@ const HargaUdangScreen: React.FC<IHargaUdangScreenProps> = ({navigation}) => {
     </>
   );
 
+  useEffect(() => {
+    if (regionId !== null) {
+      getUdang({regionId});
+    }
+  }, [regionId]);
+
+  useEffect(() => {
+    if (regionId !== null) {
+      getMoreUdang({page, regionId});
+    }
+  }, [page, regionId]);
+
+  const loadMore = () => {
+    setPage(page + 1);
+  };
+
+  useEffect(() => {
+    if (prevRegionId !== regionId) {
+      clearUdang();
+    }
+  }, [regionId]);
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={hargaUdang}
+        data={udang || []}
         renderItem={renderSupplierCard}
         contentContainerStyle={styles.contentContainer}
+        onEndReachedThreshold={0.5}
+        onEndReached={loadMore}
       />
       <BottomSheet
         index={-1}
