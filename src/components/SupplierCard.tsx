@@ -20,6 +20,7 @@ export type ISupplierCardProps = {
   price: number;
   avatar: string;
   onPressDetail: () => void;
+  currency: string;
 };
 
 const SupplierCard: React.FC<ISupplierCardProps> = ({
@@ -33,6 +34,7 @@ const SupplierCard: React.FC<ISupplierCardProps> = ({
   creationDate,
   avatar,
   onPressDetail,
+  currency,
 }) => {
   return (
     <View style={styles.container}>
@@ -67,7 +69,7 @@ const SupplierCard: React.FC<ISupplierCardProps> = ({
         <View style={styles.sizePriceContainer}>
           <Text style={styles.sizeText}>size {size}</Text>
           <Text style={styles.priceText} numberOfLines={1}>
-            IDR {price}
+            {currency} {price}
           </Text>
         </View>
         <Button
