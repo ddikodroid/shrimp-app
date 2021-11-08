@@ -35,7 +35,6 @@ export type ISupplierDetailCardProps = {
   size_200: null | number;
   remark: string | null;
   created_at: string;
-  currency_id: string;
   region: {
     name: string;
     province_name: string;
@@ -74,7 +73,6 @@ const SupplierDetailCard: React.FC<ISupplierDetailCardProps> = ({
   remark,
   created_at,
   creator,
-  currency_id,
   region,
 }) => {
   return (
@@ -116,7 +114,7 @@ const SupplierDetailCard: React.FC<ISupplierDetailCardProps> = ({
         <Gap height={16} />
         <Text style={styles.sectionTitle}>Daftar Harga</Text>
         {ukuranUdang.map(ukuran => (
-          <HargaUdangListItem price={`size_${ukuran}` as const} size={ukuran} />
+          <HargaUdangListItem price={`size_${ukuran}`} size={ukuran} />
         ))}
         {remark ? (
           <>
