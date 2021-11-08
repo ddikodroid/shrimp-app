@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Linking, StyleSheet, Text, View} from 'react-native';
 import {normalize} from '../helpers';
 import {colors, fonts} from '../styles';
 import {Button} from './Button';
@@ -9,13 +9,20 @@ export type IContactInfoProps = {
 };
 
 const ContactInfo: React.FC<IContactInfoProps> = ({contact}) => {
+  const handleContactButton = () => {
+    Linking.openURL(`tel://${contact}`);
+  };
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.phoneTitle}>Kontak</Text>
         <Text style={styles.phoneText}>{contact}</Text>
       </View>
-      <Button title="Hubungi" buttonStyle={styles.callButton} />
+      <Button
+        title="Hubungi"
+        buttonStyle={styles.callButton}
+        onPress={handleContactButton}
+      />
     </View>
   );
 };
