@@ -14,25 +14,7 @@ import {VerificationBadge} from './VerificationBadge';
 export type ISupplierDetailCardProps = {
   id: number;
   date: string;
-  size_20: null | number;
-  size_30: null | number;
-  size_40: null | number;
-  size_50: null | number;
-  size_60: null | number;
-  size_70: null | number;
-  size_80: null | number;
-  size_90: null | number;
-  size_100: null | number;
-  size_110: null | number;
-  size_120: null | number;
-  size_130: null | number;
-  size_140: null | number;
-  size_150: null | number;
-  size_160: null | number;
-  size_170: null | number;
-  size_180: null | number;
-  size_190: null | number;
-  size_200: null | number;
+  tabel: any;
   remark: string | null;
   created_at: string;
   region: {
@@ -50,31 +32,13 @@ export type ISupplierDetailCardProps = {
 
 const SupplierDetailCard: React.FC<ISupplierDetailCardProps> = ({
   id,
-  date,
-  size_20,
-  size_30,
-  size_40,
-  size_50,
-  size_60,
-  size_70,
-  size_80,
-  size_90,
-  size_100,
-  size_110,
-  size_120,
-  size_130,
-  size_140,
-  size_150,
-  size_160,
-  size_170,
-  size_180,
-  size_190,
-  size_200,
+  tabel,
   remark,
   created_at,
   creator,
   region,
 }) => {
+  console.log(tabel);
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
@@ -115,7 +79,7 @@ const SupplierDetailCard: React.FC<ISupplierDetailCardProps> = ({
         <Text style={styles.sectionTitle}>Daftar Harga</Text>
         {ukuranUdang.map(ukuran => (
           <HargaUdangListItem
-            price={`size_${ukuran}`}
+            price={tabel[ukuran]}
             size={ukuran}
             key={ukuran}
           />
