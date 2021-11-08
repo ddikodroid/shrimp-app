@@ -13,13 +13,17 @@ const HargaUdangListItem: React.FC<IHargaUdangListItemProps> = ({
   price,
   size,
 }) => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.sizeText}>Size {size}</Text>
-      <Gap width={8} />
-      <Text style={styles.priceText}>Rp {price}</Text>
-    </View>
-  );
+  if (price === null || price === 0) {
+    return null;
+  } else {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.sizeText}>Size {size}</Text>
+        <Gap width={8} />
+        <Text style={styles.priceText}>Rp {price}</Text>
+      </View>
+    );
+  }
 };
 
 export {HargaUdangListItem};
