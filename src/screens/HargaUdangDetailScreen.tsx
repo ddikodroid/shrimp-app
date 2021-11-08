@@ -16,6 +16,12 @@ const HargaUdangDetailScreen: React.FC<IHargaUdangDetailScreenProps> = ({
   route,
 }) => {
   const {item} = route.params;
+
+  let tabelHarga = {};
+  Object.keys(item)
+    .filter(key => key.includes('size_'))
+    .map(key => (tabelHarga[key.replace('size_', '')] = item[key]));
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -37,7 +43,7 @@ const HargaUdangDetailScreen: React.FC<IHargaUdangDetailScreenProps> = ({
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <SupplierDetailCard {...item} />
+        <SupplierDetailCard {...item} tabel={tabelHarga} />
       </ScrollView>
     </SafeAreaView>
   );
